@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Tickets</title>
+</head>
+<body>
+<nav role="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/tickets/add">Add ticket</a></li>
+    </ul>
+</nav>
+
+<table>
+    <tr>
+        <th></th>
+        <th>Item code</th>
+        <th>Item type</th>
+        <th>Belongs to</th>
+        <th></th>
+    </tr>
+    <tr th:each="ticket : ${tickets}">
+        <td>
+            <form th:action="@{/tickets/} + ${ticket.id}" th:method="delete">
+                <input type="submit" value="Delete" name="delete" />
+            </form>
+        </td>
+        <td th:text="${ticket.inventoryCode}">Ticket code</td>
+        <td th:text="${ticket.type}">Ticket type</td>
+        <td th:text="${ticket.user}">Belongs to</td>
+        <td>
+            <form th:action="@{/tickets/} + ${ticket.id}" th:method="put">
+                <select th:field="*{assignForm.username}">
+                    <option th:each="username : ${usernames}"
+                            th:value="${username}"
+                            th:text="${username}">Username will appear here
+                    </option>
+                </select>
+                <button type="submit">Assign</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

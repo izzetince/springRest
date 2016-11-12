@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>User</title>
+</head>
+<body>
+<nav role="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/users">Users</a></li>
+    </ul>
+</nav>
+
+<div th:each="entry : ${tickets}" th:with="ticketList=${entry.value}">
+    <p><strong th:text="${entry.key} + ': ' + ${ticketList.size()}"></strong></p>
+    <table>
+        <tr>
+            <th>Item code</th>
+            <th>Item type</th>
+        </tr>
+        <tr th:each="ticket : ${ticketList}">
+            <td th:text="${ticket.inventoryCode}">Ticket code</td>
+            <td th:text="${ticket.type}">Ticket type</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
